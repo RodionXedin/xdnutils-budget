@@ -46,6 +46,7 @@ public class GeneralActionsWalletController {
         return success().put("wallets", jsonArray).toString();
     }
 
+    //should create a valid JSON from wallet. Consider extracting it somewhere someday
     private JSONObject converWallettToJSON(Wallet wallet) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("name", wallet.getName());

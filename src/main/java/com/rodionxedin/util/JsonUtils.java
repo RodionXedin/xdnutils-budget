@@ -1,6 +1,8 @@
 package com.rodionxedin.util;
 
+import com.mongodb.util.JSON;
 import com.rodionxedin.model.User;
+import com.rodionxedin.model.Wallet;
 import org.json.JSONObject;
 
 /**
@@ -37,4 +39,9 @@ public class JsonUtils {
     public static JSONObject addError(JSONObject jsonObject,String text){
         return jsonObject.put(ERROR_JSON_ATTRIBUTE,text);
     }
+
+//
+//    public static JSONObject addAdditionalWalletInfo(JSONObject jsonObject, Wallet wallet){
+//
+//    }
 }
