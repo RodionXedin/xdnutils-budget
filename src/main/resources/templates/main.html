@@ -22,6 +22,7 @@
 <script type="text/javascript" src="/static/js/materialize.js"></script>
 <script src="/static/js/init.js"></script>
 <script src="/static/js/jquery-ui.js"></script>
+<script src="http://malsup.github.io/jquery.form.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
@@ -133,18 +134,18 @@
         <h4>Create new expense</h4>
 
         <div class="row">
-            <form class="col s12">
+            <form class="col s12" id="create-expense-form">
                 <div class="row">
-                    <input id="new-expense-input-name" class="input-field col s12" type="text"/>
+                    <input id="new-expense-input-name" class="input-field col s12" type="text" name="name"/>
                     <label for="new-expense-input-name">What was the expense?</label>
                 </div>
                 <div class="row">
-                    <input class="input-field col s12" id="new-expense-input-value" type="number"/>
+                    <input class="input-field col s12" id="new-expense-input-value" type="number" name="amount"/>
                     <label for="new-expense-input-value">How much did you spend?</label>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <select id="new-expense-input-currency">
+                        <select id="new-expense-input-currency" name="currency">
                             <option value="hrn">HRN</option>
                             <option value="usd" disabled="true">USD</option>
                             <option value="eur" disabled="true">EUR</option>
@@ -155,7 +156,7 @@
 
                 </div>
                 <div class="row">
-                    <input class="input-field col s12" id="new-expense-input-date" type="date"/>
+                    <input class="input-field col s12" id="new-expense-input-date" type="date" name="date"/>
                     <label for="new-expense-input-date">When did you spend? ( Or planning to ) </label>
                 </div>
 
@@ -163,7 +164,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat" onclick="">Create</a>
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat" onclick="createExpense()">Create</a>
         <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat" onclick="">I didn't spend this
             much!</a>
     </div>

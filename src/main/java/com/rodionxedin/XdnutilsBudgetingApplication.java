@@ -10,5 +10,4 @@ public class XdnutilsBudgetingApplication {
         SpringApplication.run(new Object[]{XdnutilsBudgetingApplication.class}, args);
     }
 
-
 }

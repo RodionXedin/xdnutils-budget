@@ -1,3 +1,5 @@
+$.getScript("static/js/util.js");
+
 function populateUserInfoWallets() {
     $.ajax("/get-user-wallets", {
         method: 'GET',
@@ -8,6 +10,19 @@ function populateUserInfoWallets() {
         }
     })
 };
+
+
+function createExpense() {
+    var walletSelector = "#create-expense-form";
+    $.ajax("/expense-create", {
+        method: 'POST',
+        data: extractValuesFromForm(walletSelector),
+        success: function (data) {
+            Materialize.toast('Expense created', 4000);
+        }
+    })
+    ;
+}
 
 function openWallet(walletName) {
     $.ajax("/get-wallet", {

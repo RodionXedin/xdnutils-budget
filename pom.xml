@@ -6,7 +6,7 @@
 	<groupId>com.rodionxedin</groupId>
 	<artifactId>xdnutils-budgeting</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>xdnutils-budgeting</name>
 	<description>Demo project for Spring Boot</description>
