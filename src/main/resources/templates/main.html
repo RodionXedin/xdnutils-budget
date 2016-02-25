@@ -20,11 +20,20 @@
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/static/js/materialize.js"></script>
+
 <script src="/static/js/init.js"></script>
 <script src="/static/js/jquery-ui.js"></script>
+
 <script src="http://malsup.github.io/jquery.form.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+<!-- debug way of including scripts-->
+<script src="/static/js/util.js"></script>
+<script src="/static/js/constants.js"></script>
+<script src="/static/js/function/user.js"></script>
+<script src="/static/js/function/wallet.js"></script>
+<script src="/static/js/function/expense.js"></script>
 
 <nav class="white" role="navigation">
     <div class="nav-wrapper container">
@@ -122,8 +131,8 @@
         <div id="input-container">
             <div id="input-container-expense">
 
-                <a class="waves-effect waves-light btn" onclick="$('#modal-create-expense').openModal();">Create new
-                    expense</a>
+                <a class="waves-effect waves-light btn" onclick="openCreateExpenseModal(event)"
+                   id="input-container-expense-create-button">Create new expense</a>
             </div>
         </div>
     </div>

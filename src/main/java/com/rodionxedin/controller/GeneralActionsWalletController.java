@@ -37,7 +37,7 @@ public class GeneralActionsWalletController {
     }
 
 
-    @RequestMapping(value = "/get-user-wallets", produces = "application/json", method = RequestMethod.GET)
+    @RequestMapping(value =  "/get-user-wallets", produces = "application/json", method = RequestMethod.GET)
     public String getCurrentWallets() {
         User user = (User) SessionUtils.getSession().getAttribute(SessionUtils.SessionAttributes.USER_ATTIBUTE.getAttribute());
         List<Wallet> wallets = user.getWallets();
