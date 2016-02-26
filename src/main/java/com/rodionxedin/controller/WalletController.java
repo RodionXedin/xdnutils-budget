@@ -21,7 +21,7 @@ import static com.rodionxedin.util.JsonUtils.success;
  * Created by rodio on 11.12.2015.
  */
 @RestController
-public class GeneralActionsWalletController {
+public class WalletController {
 
 
     @Autowired
@@ -68,6 +68,7 @@ public class GeneralActionsWalletController {
     }
 
 
+    //TODO: Relocate to some appropriate space
     @RequestMapping(value = "/get-general-information", produces = "application/json", method = RequestMethod.GET)
     public String getGeneralInformation(@RequestParam(value = "name") String name) {
         Wallet wallet = walletRepository.findByName(name);
