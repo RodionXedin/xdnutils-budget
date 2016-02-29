@@ -3,6 +3,7 @@ package com.rodionxedin.model;
 import org.joda.time.LocalDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
@@ -10,7 +11,10 @@ import java.math.BigDecimal;
 /**
  * Created by rodio on 08.12.2015.
  */
+
+@Document(collection = Change.COLLECTION_NAME)
 public class Change {
+    public static final String COLLECTION_NAME = "change";
 
 
     @Id
@@ -42,6 +46,8 @@ public class Change {
     @Transient
     private LocalDate date;
 
+    private String name;
+    private String explanation;
     private String dateConverted;
     private Currency currency;
     private String periodRule;
@@ -50,13 +56,16 @@ public class Change {
     public Change() {
     }
 
-    public Change(Type type, TimeType timeType, BigDecimal amount, LocalDate date, Currency currency, String periodRule) {
+    public Change(Type type, TimeType timeType, BigDecimal amount, LocalDate date, Currency currency, String periodRule, String name, String explanation) {
         this.type = type;
         this.timeType = timeType;
         this.amount = amount;
         this.date = date;
+        this.dateConverted = date.toString();
         this.currency = currency;
         this.periodRule = periodRule;
+        this.name = name;
+        this.explanation = explanation;
     }
 
     public String getKey() {
@@ -100,6 +109,9 @@ public class Change {
     }
 
     public LocalDate getDate() {
+        if (date == null && dateConverted != null) {
+            date = new LocalDate(dateConverted);
+        }
         return date;
     }
 
@@ -114,5 +126,31 @@ public class Change {
 
     public void setPeriodRule(String periodRule) {
         this.periodRule = periodRule;
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getExplanation() {
+        return explanation;
+    }
+
+    public void setExplanation(String explanation) {
+        this.explanation = explanation;
+    }
+
+    public String getDateConverted() {
+        return dateConverted;
+    }
+
+    public void setDateConverted(String dateConverted) {
+        this.dateConverted = dateConverted;
+        this.date = LocalDate.parse(dateConverted);
     }
 }

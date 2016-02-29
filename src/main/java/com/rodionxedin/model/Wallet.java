@@ -1,6 +1,7 @@
 package com.rodionxedin.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -21,15 +22,15 @@ public class Wallet {
         Information(String informationKey) {
             this.informationKey = informationKey;
         }
-        }
+    }
 
     @Id
     private String key;
     private String name;
     private String owner;
     private Map<Information, BigDecimal> information;
+    @DBRef
     private List<Change> changes;
-
 
     public String getName() {
         return name;
@@ -67,6 +68,14 @@ public class Wallet {
 
         information = new HashMap<>();
         information.put(Information.CURRENT_AMOUNT, amount);
+    }
+
+
+    public void addChange(Change change) {
+        if (changes == null) {
+            changes = new ArrayList<>();
+        }
+        changes.add(change);
     }
 
     public String getKey() {

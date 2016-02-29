@@ -62,8 +62,8 @@ public class WalletController {
         Wallet wallet = new Wallet(name, user.getKey());
         user.addWallet(wallet);
 
-        userRepository.save(user);
         walletRepository.save(wallet);
+        userRepository.save(user);
         return success().put("wallet", converWallettToJSON(wallet)).toString();
     }
 

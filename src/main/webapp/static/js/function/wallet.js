@@ -6,6 +6,11 @@ function openCreateExpenseModal(event) {
     $('#modal-create-expense').data(WALLET_NAME_DATA_ATTR, $(event.target).parents('div.modal').data(WALLET_NAME_DATA_ATTR));
 };
 
+function openCreateIncomeModal(event) {
+    $('#modal-create-income').openModal();
+    $('#modal-create-income').data(WALLET_NAME_DATA_ATTR, $(event.target).parents('div.modal').data(WALLET_NAME_DATA_ATTR));
+};
+
 function populateWalletModal(walletData) {
     $("#modal-wallet-name").text(walletData.name);
     $("#modal-wallet").data(WALLET_NAME_DATA_ATTR, walletData.name);
@@ -22,11 +27,42 @@ function openWallet(walletName) {
         success: function (data) {
             populateWalletModal(data.wallet);
             $("#modal-wallet").openModal();
+            reloadChangesTables();
             createCharts();
 
         }
     });
 };
+
+function reloadChangesTables(){
+    getChanges(CHANGES_ALL_TABLE, 'all');
+    getChanges(CHANGES_INCOME_TABLE, 'income');
+    getChanges(CHANGES_OUTCOME_TABLE, 'outcome');
+}
+
+function getChanges(destinationNode, type) {
+    var walletName = $("#modal-wallet").data(WALLET_NAME_DATA_ATTR);
+    $.ajax('/get-changes', {
+        method: 'GET',
+        data: {
+            walletName: walletName,
+            type: type
+        },
+        success: function (data) {
+            dust.render('changesTemplate', data, function (err, out) {
+                $(destinationNode).html(out);
+            });
+            console.log('changes for type : ' + type + 'loaded');
+        }
+    });
+
+
+}
+function displayChangeTables(state){
+        $(CHANGES_ALL_TABLE).toggleClass('hidden');
+        $(CHANGES_INCOME_TABLE).toggleClass('hidden');
+        $(CHANGES_OUTCOME_TABLE).toggleClass('hidden');
+}
 
 function addWalletToWalletList(walletShortenedName, walletName) {
     var wallet_row = $(document.createElement("li"));

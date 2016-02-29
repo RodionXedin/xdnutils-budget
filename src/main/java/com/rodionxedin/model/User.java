@@ -2,6 +2,7 @@ package com.rodionxedin.model;
 
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
@@ -41,9 +42,17 @@ public class User {
         wallets = new ArrayList<>();
     }
 
+    public Wallet getWallet(String walletName) {
+        for (Wallet wallet : wallets) {
+            if (wallet.getName().equals(walletName)) {
+                return wallet;
+            }
+        }
+        return null;
+    }
 
     public boolean addWallet(Wallet wallet) {
-        if(this.wallets == null){
+        if (this.wallets == null) {
             this.wallets = new ArrayList<>();
         }
         return wallets.add(wallet);
@@ -60,7 +69,9 @@ public class User {
 
     private String name;
     private String password;
+    @DBRef
     private List<Wallet> wallets;
+
 
 
     public String getPassword() {

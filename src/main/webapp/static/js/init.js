@@ -4,11 +4,14 @@
 //$.getScript("static/js/constants.js");
 //$.getScript("static/js/function/wallet.js");
 //$.getScript("static/js/function/expense.js");
+//$.getScript("static/js/function/income.js");
 //$.getScript("static/js/function/user.js");
 
 
 
+
 (function ($) {
+
 
 
     $(function () {

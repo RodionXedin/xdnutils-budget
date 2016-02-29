@@ -6,6 +6,10 @@
  * Made By MaterializeCSS.com
  */
 
+.hidden{
+    display: none;
+}
+
 .margins-both-sides {
     margin-left: 20px;
     margin-right: 20px;
