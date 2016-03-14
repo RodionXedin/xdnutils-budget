@@ -28,7 +28,7 @@
                 {type}
             </td>
             <td>
-                <a class="waves-effect waves-light btn valign-wrapper" onclick="deleteChange({key})"><i class="material-icons">delete</i></a>
+                <a class="waves-effect waves-light btn valign-wrapper" onclick="deleteChange('{key}')"><i class="material-icons">delete</i></a>
             </td>
         </tr>
     {/expenses}

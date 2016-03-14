@@ -1,6 +1,8 @@
 DONE                1) Manage tables  - create switch + take care of some markup problems ( enable cols inside table )
                     2) Manage chart
-                    3) Manage delete button ( + delete for wallet ? )
-                    4) Nice looking datepicker
+DONE                3) Manage delete button ( + delete for wallet ? )
+DONE                4) Nice looking datepicker
 
-                    4) FORM VALIDATORS. Someday. Maybe ? ;)
+                    5) FORM VALIDATORS. Someday. Maybe ? ;)
+
+                    6) Disable table switch if no expenses OR mock table

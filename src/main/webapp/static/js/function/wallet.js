@@ -11,6 +11,21 @@ function openCreateIncomeModal(event) {
     $('#modal-create-income').data(WALLET_NAME_DATA_ATTR, $(event.target).parents('div.modal').data(WALLET_NAME_DATA_ATTR));
 };
 
+function deleteChange(key) {
+    $.ajax('/delete-change',
+        {
+            method: 'GET',
+            data: {
+                key: key,
+                walletName: $("#modal-wallet").data(WALLET_NAME_DATA_ATTR)
+            },
+            success: function (data) {
+                reloadChangesTables();
+                Materialize.toast("Change Deleted", 4000);
+            }
+        });
+};
+
 function populateWalletModal(walletData) {
     $("#modal-wallet-name").text(walletData.name);
     $("#modal-wallet").data(WALLET_NAME_DATA_ATTR, walletData.name);
@@ -34,7 +49,7 @@ function openWallet(walletName) {
     });
 };
 
-function reloadChangesTables(){
+function reloadChangesTables() {
     getChanges(CHANGES_ALL_TABLE, 'all');
     getChanges(CHANGES_INCOME_TABLE, 'income');
     getChanges(CHANGES_OUTCOME_TABLE, 'outcome');
@@ -58,10 +73,10 @@ function getChanges(destinationNode, type) {
 
 
 }
-function displayChangeTables(state){
-        $(CHANGES_ALL_TABLE).toggleClass('hidden');
-        $(CHANGES_INCOME_TABLE).toggleClass('hidden');
-        $(CHANGES_OUTCOME_TABLE).toggleClass('hidden');
+function displayChangeTables(state) {
+    $(CHANGES_ALL_TABLE).toggleClass('hidden');
+    $(CHANGES_INCOME_TABLE).toggleClass('hidden');
+    $(CHANGES_OUTCOME_TABLE).toggleClass('hidden');
 }
 
 function addWalletToWalletList(walletShortenedName, walletName) {

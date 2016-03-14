@@ -78,6 +78,20 @@ public class Wallet {
         changes.add(change);
     }
 
+    public Change getChange(String key) {
+        for (Change change : changes) {
+            if (change.getKey().equals(key)) {
+                return change;
+            }
+        }
+        return null;
+    }
+
+    public void removeChange(Change change) {
+        changes.remove(change);
+    }
+
+
     public String getKey() {
         return key;
     }

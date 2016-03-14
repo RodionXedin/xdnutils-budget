@@ -9,14 +9,10 @@ import com.rodionxedin.model.User;
 import com.rodionxedin.model.Wallet;
 import com.rodionxedin.util.JsonUtils;
 import com.rodionxedin.util.SessionUtils;
+import org.apache.log4j.Logger;
 import org.joda.time.LocalDate;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.DateTimeFormatterBuilder;
-import org.joda.time.format.DateTimeParser;
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.datetime.joda.DateTimeFormatterFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,10 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import static com.rodionxedin.util.JsonUtils.failure;
 import static com.rodionxedin.util.JsonUtils.success;
 
 /**
@@ -35,6 +31,8 @@ import static com.rodionxedin.util.JsonUtils.success;
  */
 @RestController
 public class ChangeController {
+
+    private final Logger logger = Logger.getLogger(ChangeController.class);
 
     @Autowired
     private UserRepository userRepository;
@@ -67,7 +65,6 @@ public class ChangeController {
         Wallet wallet = user.getWallet(params.get(JsonUtils.WALLET_KEY));
 
 
-
         Change change = new Change(Change.Type.OUTCOME, Change.TimeType.ONE_TIME,
                 BigDecimal.valueOf(Double.parseDouble(params.get("amount"))),
                 LocalDate.parse(params.get("date")), Change.Currency.HRN, null, params.get("name"), null);
@@ -91,4 +88,25 @@ public class ChangeController {
         changes.forEach(change -> changesArray.put(JsonUtils.convertChangeToJson(change)));
         return success().put("expenses", changesArray).toString();
     }
+
+    @RequestMapping(value = "/delete-change", produces = "application/json", method = RequestMethod.GET)
+    public String deleteChange(@RequestParam String key, String walletName) {
+        logger.info("Request to delete change :  " + key + "on wallet : " + walletName);
+        User user = (User) SessionUtils.getSession().getAttribute(SessionUtils.SessionAttributes.USER_ATTIBUTE.getAttribute());
+        Wallet wallet = user.getWallet(walletName);
+        Change changeToDelete = wallet.getChange(key);
+        if (changeToDelete != null) {
+            wallet.removeChange(changeToDelete);
+            walletRepository.save(wallet);
+            chageRepository.delete(changeToDelete);
+
+            logger.info("Change deleted : " + changeToDelete.getName());
+
+            return success().toString();
+        } else {
+            return failure().put("reason", "Not Found").toString();
+        }
+    }
+
 }
+
