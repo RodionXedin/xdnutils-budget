@@ -1,5 +1,6 @@
 package com.rodionxedin.model;
 
+import com.google.common.base.Objects;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
@@ -114,5 +115,20 @@ public class Wallet {
 
     public void setChanges(List<Change> changes) {
         this.changes = changes;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Wallet wallet = (Wallet) o;
+        return Objects.equal(name, wallet.name) &&
+                Objects.equal(owner, wallet.owner);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(name, owner);
     }
 }

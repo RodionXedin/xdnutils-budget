@@ -1,6 +1,7 @@
 package com.rodionxedin.model;
 
 
+import com.google.common.base.Objects;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -96,5 +97,19 @@ public class User {
 
     public void setWallets(List<Wallet> wallets) {
         this.wallets = wallets;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equal(name, user.name) &&
+                Objects.equal(password, user.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(name, password);
     }
 }

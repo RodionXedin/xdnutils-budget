@@ -1,5 +1,6 @@
 package com.rodionxedin.model;
 
+import com.google.common.base.Objects;
 import org.joda.time.LocalDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
@@ -152,5 +153,27 @@ public class Change {
     public void setDateConverted(String dateConverted) {
         this.dateConverted = dateConverted;
         this.date = LocalDate.parse(dateConverted);
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Change change = (Change) o;
+        return type == change.type &&
+                timeType == change.timeType &&
+                Objects.equal(amount, change.amount) &&
+                Objects.equal(date, change.date) &&
+                Objects.equal(name, change.name) &&
+                Objects.equal(explanation, change.explanation) &&
+                Objects.equal(dateConverted, change.dateConverted) &&
+                currency == change.currency &&
+                Objects.equal(periodRule, change.periodRule);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(type, timeType, amount, date, name, explanation, dateConverted, currency, periodRule);
     }
 }

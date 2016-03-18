@@ -2,6 +2,8 @@ package com.rodionxedin.controller;
 
 import com.rodionxedin.db.UserRepository;
 import com.rodionxedin.model.User;
+import com.rodionxedin.service.machine.TimeMachine;
+import com.rodionxedin.service.machine.TimeMachineUserEntry;
 import com.rodionxedin.util.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +24,9 @@ public class LoginController {
 
 
     @Autowired
+    private TimeMachine timeMachine;
+
+    @Autowired
     private UserRepository userRepository;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET, produces = "application/json")
@@ -32,6 +37,8 @@ public class LoginController {
         if (user != null) {
             return addBasicUserInfo(success(), user).toString();
         }
+
+
         return failure().toString();
     }
 
@@ -61,6 +68,7 @@ public class LoginController {
         }
 
         session.setAttribute(SessionUtils.SessionAttributes.USER_ATTIBUTE.getAttribute(), user);
+        timeMachine.getTimeMachineUserEntryMap().put(user, new TimeMachineUserEntry(user));
 
         return addBasicUserInfo(success(), user, newUser).toString();
     }
