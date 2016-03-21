@@ -5,6 +5,7 @@ import com.rodionxedin.db.WalletRepository;
 import com.rodionxedin.model.User;
 import com.rodionxedin.model.Wallet;
 import com.rodionxedin.service.machine.TimeMachine;
+import com.rodionxedin.service.machine.TimeMachineUserEntry;
 import com.rodionxedin.util.ChartUtils;
 import com.rodionxedin.util.SessionUtils;
 import org.json.JSONArray;
@@ -45,7 +46,9 @@ public class WalletController {
     public String getGeneralChart(@RequestParam(value = "name") String name) {
         Wallet wallet = walletRepository.findByName(name);
         User user = (User) SessionUtils.getSession().getAttribute(SessionUtils.SessionAttributes.USER_ATTIBUTE.getAttribute());
-        return success().put("chart", ChartUtils.createChart(wallet, timeMachine.getTimeMachineUserEntryMap().get(user))).toString();
+        TimeMachineUserEntry timeMachineUserEntry = timeMachine.getTimeMachineUserEntryMap().get(user);
+        return success().put("chart", ChartUtils.createChart(timeMachineUserEntry.getActualWalletEntry(wallet),
+                timeMachineUserEntry)).toString();
     }
 
 

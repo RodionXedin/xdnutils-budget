@@ -7,6 +7,7 @@ import com.rodionxedin.db.WalletRepository;
 import com.rodionxedin.model.Change;
 import com.rodionxedin.model.User;
 import com.rodionxedin.model.Wallet;
+import com.rodionxedin.service.machine.TimeMachine;
 import com.rodionxedin.util.JsonUtils;
 import com.rodionxedin.util.SessionUtils;
 import org.apache.log4j.Logger;
@@ -35,13 +36,16 @@ public class ChangeController {
     private final Logger logger = Logger.getLogger(ChangeController.class);
 
     @Autowired
+    private TimeMachine timeMachine;
+
+    @Autowired
     private UserRepository userRepository;
 
     @Autowired
     private WalletRepository walletRepository;
 
     @Autowired
-    private ChangeRepository chageRepository;
+    private ChangeRepository changeRepository;
 
     @RequestMapping(value = "/create-income", produces = "application/json", method = RequestMethod.POST)
     public String createIncome(@RequestParam Map<String, String> params) {
@@ -53,9 +57,9 @@ public class ChangeController {
                 LocalDate.parse(params.get("date")), Change.Currency.HRN, null, params.get("name"), null);
 
 
-        Change changeSaved = chageRepository.save(change);
+        Change changeSaved = changeRepository.save(change);
         wallet.addChange(changeSaved);
-        walletRepository.save(wallet);
+        timeMachine.saveWallet(user, wallet);
         return success().put("data", JSON.serialize(params).toString()).toString();
     }
 
@@ -70,9 +74,9 @@ public class ChangeController {
                 LocalDate.parse(params.get("date")), Change.Currency.HRN, null, params.get("name"), null);
 
 
-        Change changeSaved = chageRepository.save(change);
+        Change changeSaved = changeRepository.save(change);
         wallet.addChange(changeSaved);
-        walletRepository.save(wallet);
+        timeMachine.saveWallet(user, wallet);
         return success().put("data", JSON.serialize(params).toString()).toString();
     }
 
@@ -97,8 +101,8 @@ public class ChangeController {
         Change changeToDelete = wallet.getChange(key);
         if (changeToDelete != null) {
             wallet.removeChange(changeToDelete);
-            walletRepository.save(wallet);
-            chageRepository.delete(changeToDelete);
+            timeMachine.saveWallet(user, wallet);
+            changeRepository.delete(changeToDelete);
 
             logger.info("Change deleted : " + changeToDelete.getName());
 
@@ -107,6 +111,7 @@ public class ChangeController {
             return failure().put("reason", "Not Found").toString();
         }
     }
+
 
 }
 

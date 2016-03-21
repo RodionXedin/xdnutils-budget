@@ -23,6 +23,18 @@ public class TimeMachineUserEntry {
         this.user = user;
     }
 
+    public void updateWallet(Wallet wallet) {
+        walletEntryMap.put(wallet, new TimeMachineWalletEntry(wallet));
+    }
+
+    public Wallet getActualWalletEntry(Wallet wallet) {
+        if (!walletEntryMap.containsKey(wallet)) {
+            walletEntryMap.put(wallet, new TimeMachineWalletEntry(wallet));
+        }
+
+        return walletEntryMap.get(wallet).getWallet();
+    }
+
     public BigDecimal getCurrentState(Wallet wallet) {
         if (!walletEntryMap.containsKey(wallet)) {
             walletEntryMap.put(wallet, new TimeMachineWalletEntry(wallet));
@@ -57,17 +69,13 @@ public class TimeMachineUserEntry {
     }
 
 
-
-
-
-    public List<Pair<LocalDate,BigDecimal>> getStates(Wallet wallet){
+    public List<Pair<LocalDate, BigDecimal>> getStates(Wallet wallet) {
         if (!walletEntryMap.containsKey(wallet)) {
             walletEntryMap.put(wallet, new TimeMachineWalletEntry(wallet));
         }
 
         return walletEntryMap.get(wallet).getStates();
     }
-
 
 
 }

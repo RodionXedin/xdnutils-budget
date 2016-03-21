@@ -8,6 +8,8 @@ import org.thymeleaf.util.ListUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -49,10 +51,12 @@ public class TimeMachineWalletEntry {
                 lowestState = currentState;
             }
 
-            states.add(Pair.of(change.getDate(),currentState));
+            states.add(Pair.of(change.getDate(), currentState));
 
 
         }
+
+        Collections.sort(states, (o1, o2) -> o1.getLeft().compareTo(o2.getLeft()));
     }
 
     public Wallet getWallet() {

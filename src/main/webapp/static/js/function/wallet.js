@@ -29,7 +29,6 @@ function deleteChange(key) {
 function populateWalletModal(walletData) {
     $("#modal-wallet-name").text(walletData.name);
     $("#modal-wallet").data(WALLET_NAME_DATA_ATTR, walletData.name);
-
     return this;
 };
 
@@ -43,8 +42,20 @@ function openWallet(walletName) {
             populateWalletModal(data.wallet);
             $("#modal-wallet").openModal();
             reloadChangesTables();
-            createCharts();
+        }
+    });
 
+};
+
+function loadChart() {
+    var walletName = $("#modal-wallet").data(WALLET_NAME_DATA_ATTR);
+    $.ajax("/get-general-chart", {
+        method: 'GET',
+        data: {
+            name: walletName
+        },
+        success: function (data) {
+            $('#charts-container').highcharts(data.chart);
         }
     });
 };
@@ -53,6 +64,7 @@ function reloadChangesTables() {
     getChanges(CHANGES_ALL_TABLE, 'all');
     getChanges(CHANGES_INCOME_TABLE, 'income');
     getChanges(CHANGES_OUTCOME_TABLE, 'outcome');
+    loadChart();
 }
 
 function getChanges(destinationNode, type) {
