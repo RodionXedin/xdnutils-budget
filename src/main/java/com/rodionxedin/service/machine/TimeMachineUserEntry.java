@@ -2,6 +2,7 @@ package com.rodionxedin.service.machine;
 
 import com.rodionxedin.model.User;
 import com.rodionxedin.model.Wallet;
+import com.rodionxedin.service.currency.CurrencyServer;
 import org.apache.commons.lang3.tuple.Pair;
 import org.joda.time.LocalDate;
 
@@ -17,19 +18,22 @@ public class TimeMachineUserEntry {
 
     private User user;
 
+    private CurrencyServer currencyServer;
+
     private Map<Wallet, TimeMachineWalletEntry> walletEntryMap = new HashMap<>();
 
-    public TimeMachineUserEntry(User user) {
+    public TimeMachineUserEntry(User user, CurrencyServer currencyServer) {
         this.user = user;
+        this.currencyServer = currencyServer;
     }
 
     public void updateWallet(Wallet wallet) {
-        walletEntryMap.put(wallet, new TimeMachineWalletEntry(wallet));
+        walletEntryMap.put(wallet, new TimeMachineWalletEntry(wallet, currencyServer, user.getDefaultCurrency()));
     }
 
     public Wallet getActualWalletEntry(Wallet wallet) {
         if (!walletEntryMap.containsKey(wallet)) {
-            walletEntryMap.put(wallet, new TimeMachineWalletEntry(wallet));
+            walletEntryMap.put(wallet, new TimeMachineWalletEntry(wallet, currencyServer, user.getDefaultCurrency()));
         }
 
         return walletEntryMap.get(wallet).getWallet();
@@ -37,7 +41,7 @@ public class TimeMachineUserEntry {
 
     public BigDecimal getCurrentState(Wallet wallet) {
         if (!walletEntryMap.containsKey(wallet)) {
-            walletEntryMap.put(wallet, new TimeMachineWalletEntry(wallet));
+            walletEntryMap.put(wallet, new TimeMachineWalletEntry(wallet, currencyServer, user.getDefaultCurrency()));
         }
 
         return walletEntryMap.get(wallet).getCurrentState();
@@ -45,7 +49,7 @@ public class TimeMachineUserEntry {
 
     public BigDecimal getOriginalState(Wallet wallet) {
         if (!walletEntryMap.containsKey(wallet)) {
-            walletEntryMap.put(wallet, new TimeMachineWalletEntry(wallet));
+            walletEntryMap.put(wallet, new TimeMachineWalletEntry(wallet, currencyServer, user.getDefaultCurrency()));
         }
 
         return walletEntryMap.get(wallet).getOriginalState();
@@ -54,7 +58,7 @@ public class TimeMachineUserEntry {
 
     public BigDecimal getLowestState(Wallet wallet) {
         if (!walletEntryMap.containsKey(wallet)) {
-            walletEntryMap.put(wallet, new TimeMachineWalletEntry(wallet));
+            walletEntryMap.put(wallet, new TimeMachineWalletEntry(wallet, currencyServer, user.getDefaultCurrency()));
         }
 
         return walletEntryMap.get(wallet).getOriginalState();
@@ -62,7 +66,7 @@ public class TimeMachineUserEntry {
 
     public BigDecimal getHighestState(Wallet wallet) {
         if (!walletEntryMap.containsKey(wallet)) {
-            walletEntryMap.put(wallet, new TimeMachineWalletEntry(wallet));
+            walletEntryMap.put(wallet, new TimeMachineWalletEntry(wallet, currencyServer, user.getDefaultCurrency()));
         }
 
         return walletEntryMap.get(wallet).getOriginalState();
@@ -71,10 +75,10 @@ public class TimeMachineUserEntry {
 
     public List<Pair<LocalDate, BigDecimal>> getStates(Wallet wallet) {
         if (!walletEntryMap.containsKey(wallet)) {
-            walletEntryMap.put(wallet, new TimeMachineWalletEntry(wallet));
+            walletEntryMap.put(wallet, new TimeMachineWalletEntry(wallet, currencyServer, user.getDefaultCurrency()));
         }
 
-        return walletEntryMap.get(wallet).getStates();
+        return walletEntryMap.get(wallet).getStatesAsList();
     }
 
 

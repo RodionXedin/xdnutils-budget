@@ -7,6 +7,7 @@ import com.rodionxedin.db.WalletRepository;
 import com.rodionxedin.model.Change;
 import com.rodionxedin.model.User;
 import com.rodionxedin.model.Wallet;
+import com.rodionxedin.service.currency.CurrencyServer;
 import com.rodionxedin.service.machine.TimeMachine;
 import com.rodionxedin.util.JsonUtils;
 import com.rodionxedin.util.SessionUtils;
@@ -35,6 +36,10 @@ public class ChangeController {
 
     private final Logger logger = Logger.getLogger(ChangeController.class);
 
+
+    @Autowired
+    private CurrencyServer currencyServer;
+
     @Autowired
     private TimeMachine timeMachine;
 
@@ -54,7 +59,7 @@ public class ChangeController {
 
         Change change = new Change(Change.Type.INCOME, Change.TimeType.ONE_TIME,
                 BigDecimal.valueOf(Double.parseDouble(params.get("amount"))),
-                LocalDate.parse(params.get("date")), Change.Currency.HRN, null, params.get("name"), null);
+                LocalDate.parse(params.get("date")), Change.Currency.valueOf(params.get("currency")), null, params.get("name"), null);
 
 
         Change changeSaved = changeRepository.save(change);
@@ -71,7 +76,7 @@ public class ChangeController {
 
         Change change = new Change(Change.Type.OUTCOME, Change.TimeType.ONE_TIME,
                 BigDecimal.valueOf(Double.parseDouble(params.get("amount"))),
-                LocalDate.parse(params.get("date")), Change.Currency.HRN, null, params.get("name"), null);
+                LocalDate.parse(params.get("date")), Change.Currency.valueOf(params.get("currency")), null, params.get("name"), null);
 
 
         Change changeSaved = changeRepository.save(change);
@@ -88,6 +93,7 @@ public class ChangeController {
         if (!type.equals("all")) {
             changes.removeIf(change -> change.getType().equals(type.equalsIgnoreCase("income") ? Change.Type.OUTCOME : Change.Type.INCOME));
         }
+        changes.sort((o1, o2) -> o1.getDate().compareTo(o2.getDate()));
         JSONArray changesArray = new JSONArray();
         changes.forEach(change -> changesArray.put(JsonUtils.convertChangeToJson(change)));
         return success().put("expenses", changesArray).toString();

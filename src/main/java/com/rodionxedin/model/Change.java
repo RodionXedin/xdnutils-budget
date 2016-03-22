@@ -31,7 +31,7 @@ public class Change {
     }
 
     public enum Currency {
-        USD, HRN
+        USD, UAH, EUR, RUB, HRN
     }
 
     @PostConstruct

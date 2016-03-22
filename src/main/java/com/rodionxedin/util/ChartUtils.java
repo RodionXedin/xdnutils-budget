@@ -1,15 +1,15 @@
 package com.rodionxedin.util;
 
-import com.rodionxedin.service.machine.TimeMachineUserEntry;
 import com.rodionxedin.model.Change;
-import com.rodionxedin.model.User;
 import com.rodionxedin.model.Wallet;
+import com.rodionxedin.service.machine.TimeMachineUserEntry;
+import org.joda.time.LocalTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
+import java.util.TimeZone;
 
 /**
  * Created by rodion on 15.03.2016.
@@ -19,7 +19,7 @@ public class ChartUtils {
     public static JSONObject createChart(Wallet wallet, TimeMachineUserEntry timeMachineUserEntry) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("title", new JSONObject().put("text", "Balance Chart").put("x", -20));
-        jsonObject.put("chart", new JSONObject().put("type","spline"));
+        jsonObject.put("chart", new JSONObject().put("type", "spline"));
         jsonObject.put("xAxis", new JSONObject().put("type", "datetime"));
         jsonObject.put("yAxis", new JSONObject().put("plotLines", new JSONArray().put(new JSONObject()
                 .put("value", 0)
@@ -35,7 +35,9 @@ public class ChartUtils {
 
         JSONArray actualStates = new JSONArray();
         timeMachineUserEntry.getStates(wallet).forEach(localDateBigDecimalPair -> actualStates.put(
-                new JSONArray().put(localDateBigDecimalPair.getLeft().toDateMidnight().getMillis()).put(localDateBigDecimalPair.getRight().doubleValue())));
+                new JSONArray().put(localDateBigDecimalPair.getLeft().toDateTime(LocalTime.MIDNIGHT)
+                        .plus(TimeZone.getDefault().getOffset(localDateBigDecimalPair.getLeft().toDateTime(LocalTime.MIDNIGHT).getMillis()))
+                        .getMillis()).put(localDateBigDecimalPair.getRight().doubleValue())));
         jsonObject.put("series", new JSONArray()
                 .put(new JSONObject()
                         .put("name", "Actual State")

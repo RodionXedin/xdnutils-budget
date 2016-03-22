@@ -26,6 +26,21 @@ function deleteChange(key) {
         });
 };
 
+function populateRatesTable(rates) {
+    $("#modal-wallet").data("rates", rates);
+    var defaultCurrency = $('#user-info-div').data("defaultCurrency");
+    $(".currency-input").each(function (i, v) {
+        if (rates[$(v).data("currency") + defaultCurrency] != undefined) {
+            dust.render('currencyInputTemplate',
+                {currency: $(v).data("currency"), rate: rates[$(v).data("currency") + defaultCurrency]},
+                function (err, out) {
+                    $(v).html(out);
+                });
+        }
+        console.log()
+    })
+};
+
 function populateWalletModal(walletData) {
     $("#modal-wallet-name").text(walletData.name);
     $("#modal-wallet").data(WALLET_NAME_DATA_ATTR, walletData.name);
@@ -39,6 +54,7 @@ function openWallet(walletName) {
             name: walletName
         },
         success: function (data) {
+            populateRatesTable(data.rates);
             populateWalletModal(data.wallet);
             $("#modal-wallet").openModal();
             reloadChangesTables();

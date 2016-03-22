@@ -6,12 +6,11 @@
 //$.getScript("static/js/function/expense.js");
 //$.getScript("static/js/function/income.js");
 //$.getScript("static/js/function/user.js");
-
-
+//$.getScript("static/js/lib/typeahead.bundle.js");
+//$.getScript("/static/js/lib/dust-full-0.3.0.js");
 
 
 (function ($) {
-
 
 
     $(function () {

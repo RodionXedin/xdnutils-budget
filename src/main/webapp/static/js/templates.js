@@ -10,6 +10,12 @@ function loadAndInitTemplates() {
           dust.loadSource(dust.compile(data, "changesTemplate"));
         }
     });
+    $.ajax(DUST_CURRENCY_INPUT_TEMPLATE_PATH, {
+        method: 'GET',
+        success: function (data) {
+            dust.loadSource(dust.compile(data, "currencyInputTemplate"));
+        }
+    });
 };
 
 $(function () {

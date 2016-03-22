@@ -70,6 +70,8 @@ public class User {
 
     private String name;
     private String password;
+    private String defaultCurrency = "UAH";
+
     @DBRef
     private List<Wallet> wallets;
 
@@ -99,6 +101,14 @@ public class User {
         this.wallets = wallets;
     }
 
+    public String getDefaultCurrency() {
+        return defaultCurrency;
+    }
+
+    public void setDefaultCurrency(String defaultCurrency) {
+        this.defaultCurrency = defaultCurrency;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -107,6 +117,8 @@ public class User {
         return Objects.equal(name, user.name) &&
                 Objects.equal(password, user.password);
     }
+
+
 
     @Override
     public int hashCode() {

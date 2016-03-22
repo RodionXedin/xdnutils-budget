@@ -28,7 +28,7 @@
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="/static/js/lib/dust-full-0.3.0.js"></script>
-
+<script src="/static/js/lib/typeahead.bundle.js"></script>
 <!-- debug way of including scripts-->
 <script src="/static/js/util.js"></script>
 <script src="/static/js/constants.js"></script>
@@ -91,6 +91,12 @@
                     <li class="collection-header"><h5>Your Wallets : </h5></li>
                 </ul>
             </div>
+            <div id="user-info-default-currency">
+                <div>
+                    Default Currency :
+                    <div id="user-info-default-currency-value"></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -143,6 +149,7 @@
 
         <div id="table-switch-container" class="container">
             <br/>
+
             <div class="switch" id="table-switch">
                 <label>
                     Combined
@@ -196,10 +203,14 @@
                 <div class="row">
                     <div class="input-field col s12">
                         <select id="new-expense-input-currency" name="currency">
-                            <option value="hrn">HRN</option>
-                            <option value="usd" disabled="true">USD</option>
-                            <option value="eur" disabled="true">EUR</option>
-                            <option value="rur" disabled="true">RUR</option>
+                            <option class="currency-input" data-currency="UAH" id="currency-UAH" value="UAH">UAH
+                            </option>
+                            <option class="currency-input" data-currency="USD" id="currency-USD" value="USD">USD
+                            </option>
+                            <option class="currency-input" data-currency="EUR" id="currency-eur" value="EUR">EUR
+                            </option>
+                            <option class="currency-input" data-currency="RUB" id="currency-rub" value="RUB">RUB
+                            </option>
                         </select>
                     </div>
                     <label for="new-expense-input-currency">In what currency ?</label>
@@ -210,6 +221,14 @@
                     <label for="new-expense-input-date">When did you spend? ( Or planning to ) </label>
                 </div>
 
+                <div class="row">
+                    <input type="checkbox" name="periodic" id="new-expense-input-periodic" />
+                    <label for="new-expense-input-periodic">Periodic change?</label>
+                    </div>
+                <div class="row">
+                    <input class="input-filed col s12" id="new-expense-input-rule" type="text" name="rule"/>
+                    <label for="new-expense-input-rule">What's the rule ?</label>
+                </div>
             </form>
         </div>
     </div>
@@ -237,10 +256,11 @@
                 <div class="row">
                     <div class="input-field col s12">
                         <select id="new-income-input-currency" name="currency">
-                            <option value="hrn">HRN</option>
-                            <option value="usd" disabled="true">USD</option>
-                            <option value="eur" disabled="true">EUR</option>
-                            <option value="rur" disabled="true">RUR</option>
+
+                            <option class="currency-input" data-currency="UAH" value="UAH">UAH</option>
+                            <option class="currency-input" data-currency="USD" value="USD">USD</option>
+                            <option class="currency-input" data-currency="EUR" value="EUR">EUR</option>
+                            <option class="currency-input" data-currency="RUB" value="RUB">RUB</option>
                         </select>
                     </div>
                     <label for="new-income-input-currency">In what currency ?</label>

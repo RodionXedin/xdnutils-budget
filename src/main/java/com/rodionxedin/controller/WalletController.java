@@ -4,6 +4,7 @@ import com.rodionxedin.db.UserRepository;
 import com.rodionxedin.db.WalletRepository;
 import com.rodionxedin.model.User;
 import com.rodionxedin.model.Wallet;
+import com.rodionxedin.service.currency.CurrencyServer;
 import com.rodionxedin.service.machine.TimeMachine;
 import com.rodionxedin.service.machine.TimeMachineUserEntry;
 import com.rodionxedin.util.ChartUtils;
@@ -27,6 +28,9 @@ import static com.rodionxedin.util.JsonUtils.success;
 public class WalletController {
 
     @Autowired
+    private CurrencyServer currencyServer;
+
+    @Autowired
     private TimeMachine timeMachine;
 
     @Autowired
@@ -38,7 +42,9 @@ public class WalletController {
     @RequestMapping(value = "/get-wallet", produces = "application/json", method = RequestMethod.GET)
     public String getWalletByName(@RequestParam(value = "name") String name) {
         Wallet wallet = walletRepository.findByName(name);
-        return success().put("wallet", converWallettToJSON(wallet)).toString();
+        JSONObject rates = new JSONObject();
+        currencyServer.getRatesMap().forEach((s, bigDecimal) -> rates.put(s, bigDecimal.doubleValue()));
+        return success().put("wallet", converWallettToJSON(wallet)).put("rates", rates).toString();
     }
 
 
@@ -46,7 +52,7 @@ public class WalletController {
     public String getGeneralChart(@RequestParam(value = "name") String name) {
         Wallet wallet = walletRepository.findByName(name);
         User user = (User) SessionUtils.getSession().getAttribute(SessionUtils.SessionAttributes.USER_ATTIBUTE.getAttribute());
-        TimeMachineUserEntry timeMachineUserEntry = timeMachine.getTimeMachineUserEntryMap().get(user);
+        TimeMachineUserEntry timeMachineUserEntry = timeMachine.getUserEntry(user);
         return success().put("chart", ChartUtils.createChart(timeMachineUserEntry.getActualWalletEntry(wallet),
                 timeMachineUserEntry)).toString();
     }

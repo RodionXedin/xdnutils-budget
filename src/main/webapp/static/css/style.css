@@ -6,6 +6,14 @@
  * Made By MaterializeCSS.com
  */
 
+.currency-input-rate {
+    color: #000; /* Fallback for older browsers */
+    color: rgba(0, 0, 0, 0.4);
+
+    font-size: 16pt;
+    font-family: Arial, sans-serif;
+}
+
 .hidden{
     display: none;
 }

@@ -5,7 +5,7 @@ function extractValuesFromForm(formSelector, additionalAttributes) {
     var form = $(formSelector);
     var result = {};
 
-    $(formSelector + " input,select").each(function (index, value) {
+    $(formSelector + ">div" + ">div>select," + formSelector + ">div" + ">input").each(function (index, value) {
         result[value.name] = $(value).val();
     });
 
@@ -24,7 +24,8 @@ function submitForm(node, formSelector, additionalData, clearForm, successMessag
                 $(formSelector + ' input,select').each(function (index, value) {
                     $(value).val('');
                 })
-            };
+            }
+            ;
             successCallback();
         }
     });

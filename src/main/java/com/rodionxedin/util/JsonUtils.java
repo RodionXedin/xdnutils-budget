@@ -1,10 +1,8 @@
 package com.rodionxedin.util;
 
 import com.google.gson.GsonBuilder;
-import com.mongodb.util.JSON;
 import com.rodionxedin.model.Change;
 import com.rodionxedin.model.User;
-import com.rodionxedin.model.Wallet;
 import org.json.JSONObject;
 
 /**
@@ -21,6 +19,7 @@ public class JsonUtils {
     private static final String NEW_USER_JSON_ATTRIBUTE = "newUser";
     public static final String ERROR_JSON_ATTRIBUTE = "error";
     public static final String WALLET_KEY = "wallet";
+    private static final String USER_DEFAULT_CURRENCY = "defaultCurrency";
 
 
     public static JSONObject success() {
@@ -36,13 +35,15 @@ public class JsonUtils {
 
         return jsonObject.put(USER_NAME_JSON_ATTRIBUTE, user.getName())
                 .put(WALLETS_USER_JSON_ATTRIBUTE, new GsonBuilder().create().toJson(user.getWallets()))
-                .put(NEW_USER_JSON_ATTRIBUTE, false);
+                .put(NEW_USER_JSON_ATTRIBUTE, false)
+                .put(USER_DEFAULT_CURRENCY, user.getDefaultCurrency());
     }
 
     public static JSONObject addBasicUserInfo(JSONObject jsonObject, User user, boolean newUser) {
         return jsonObject.put(USER_NAME_JSON_ATTRIBUTE, user.getName())
                 .put(WALLETS_USER_JSON_ATTRIBUTE, new GsonBuilder().create().toJson(user.getWallets()))
-                .put(NEW_USER_JSON_ATTRIBUTE, newUser);
+                .put(NEW_USER_JSON_ATTRIBUTE, newUser)
+                .put(USER_DEFAULT_CURRENCY, user.getDefaultCurrency());
     }
 
     public static JSONObject addError(JSONObject jsonObject, String text) {

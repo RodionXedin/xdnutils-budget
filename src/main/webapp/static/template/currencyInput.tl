@@ -1,0 +1,1 @@
+{currency} (current rate is : <p class="currency-input-rate">{rate}</p>)

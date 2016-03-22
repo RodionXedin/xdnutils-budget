@@ -3,7 +3,6 @@ package com.rodionxedin.controller;
 import com.rodionxedin.db.UserRepository;
 import com.rodionxedin.model.User;
 import com.rodionxedin.service.machine.TimeMachine;
-import com.rodionxedin.service.machine.TimeMachineUserEntry;
 import com.rodionxedin.util.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,7 +67,7 @@ public class LoginController {
         }
 
         session.setAttribute(SessionUtils.SessionAttributes.USER_ATTIBUTE.getAttribute(), user);
-        timeMachine.getTimeMachineUserEntryMap().put(user, new TimeMachineUserEntry(user));
+        timeMachine.createUserEntry(user);
 
         return addBasicUserInfo(success(), user, newUser).toString();
     }

@@ -4,6 +4,8 @@
 function populate_user_info_div(data) {
     $("#user-info-div-name").text('User : ' + data.userName);
     $('#user-info-div-wallet-count-badge').text(JSON.parse(data.wallets).length + ' wallets');
+    $('#user-info-default-currency-value').text(data.defaultCurrency);
+    $('#user-info-div').data("defaultCurrency", data.defaultCurrency);
     if (!data.newUser) {
         Materialize.toast('Welcome back ' + data.userName, 4000);
     }
