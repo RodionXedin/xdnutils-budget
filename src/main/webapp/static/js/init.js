@@ -10,6 +10,7 @@
 //$.getScript("/static/js/lib/dust-full-0.3.0.js");
 
 //init js
+//test vcs
 (function ($) {
 
 
