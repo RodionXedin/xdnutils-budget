@@ -9,7 +9,7 @@
 //$.getScript("static/js/lib/typeahead.bundle.js");
 //$.getScript("/static/js/lib/dust-full-0.3.0.js");
 
-
+//init js
 (function ($) {
 
 
