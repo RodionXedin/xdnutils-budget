@@ -42,7 +42,9 @@
     <div class="nav-wrapper container">
         <a id="logo-container" href="#" class="brand-logo">Logo</a>
         <ul class="right hide-on-med-and-down">
-            <li><a href="#">Navbar Link</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Wallet</a></li>
         </ul>
         <a href="#" data-activates="nav-mobile" class="button-collapse lines"><i class="material-icons">menu</i></a>
     </div>
@@ -77,25 +79,30 @@
         </div>
         <div id="user-info-div" class="margins-both-sides" style="display: none;">
 
-            <div id="user-info-div-name" class="chip cyan left">
+            <!--<div id="user-info-div-name" class="chip cyan left">
             </div>
             <div class="chip blue right" id="user-info-div-wallet-count-badge">
-            </div>
+            </div> --> <!--New Design-->
             <div id="user-info-wallet-div">
                 <br/>
                 <br/>
-                <a href="#modal-create-new-wallet" class="btn-floating btn-large waves-effect waves-light red"
-                   id="user-info-wallet-add-wallet-button"
-                   style="padding: 0 1px;"><i class="material-icons">add</i></a>
                 <ul class="left collection teal lighten-4" id="user-info-wallet-collection">
-                    <li class="collection-header"><h5>Your Wallets : </h5></li>
+                    <li class="collection-header" ><h5>Your Wallets : </h5></li>
                 </ul>
             </div>
-            <div id="user-info-default-currency">
-                <div>
+            <!--<div id="user-info-default-currency">
+                <div align="center">
                     Default Currency :
-                    <div id="user-info-default-currency-value"></div>
+                    <div id="user-info-default-currency-value" align="center" class="inline" style="font-weight: bold;"></div>
                 </div>
+            </div>-->
+
+            <div style="position:absolute; bottom:50px; width:85%;">
+                <a href="#modal-create-new-wallet" class="add-wallet-button btn-floating waves-effect waves-light red"
+               id="user-info-wallet-add-wallet-button"
+               style="padding: 0 1px;margin-left: 35%;margin-top: 50px;margin-bottom: 50px;"><i class="plus-add-wallet-button" style="margin-top: 22%">add</i></a>
+
+            <div align="center" style="opacity:0.5; padding-bottom: 10%;">You have <div id="user-info-div-wallet-count-badge" class="inline" ></div> </div>
             </div>
         </div>
     </div>
@@ -112,6 +119,7 @@
                     <i class="material-icons prefix">tab</i>
                     <input id="create-wallet-name" type="text" class="indigo-text validate"
                            placeholder="Some Basic Wallet"/>
+                    <label for="create-wallet-name" class="validate">Wallet Name</label>
                     <label for="create-wallet-name" class="validate">Wallet Name</label>
                 </div>
             </div>

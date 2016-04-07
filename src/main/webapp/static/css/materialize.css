@@ -11222,3 +11222,30 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
         margin-bottom: 5em;
     }
 }
+
+.add-wallet-button {
+    width: 65.5px;
+    height: 65.5px;
+    line-height: 0px;
+}
+
+.plus-add-wallet-button {
+    font-family: 'Material Icons';
+    font-style: normal;
+    width: inherit;
+    display: inline-block;
+    text-align: center;
+    color: #fff;
+    font-size: 2.0rem;
+    line-height: 0px;
+}
+
+.inline {
+display: inline;
+}
+
+.collection-header-test {
+    background-color: #fff;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0px 0px;
+}
