@@ -1115,8 +1115,7 @@
         function buildCss() {
             var css = {
                 wrapper: {
-                    position: "relative",
-                    display: "inline-block"
+                    position: "relative"
                 },
                 hint: {
                     position: "absolute",
@@ -1136,9 +1135,8 @@
                     verticalAlign: "top"
                 },
                 menu: {
-                    position: "absolute",
+                    position: "relative",
                     top: "100%",
-                    left: "0",
                     zIndex: "100",
                     display: "none"
                 },

@@ -83,3 +83,9 @@ p {
 footer.page-footer {
     margin: 0;
 }
+
+.expense-button{
+    position: absolute;
+    bottom: 0px;
+    right: 50%;
+}
