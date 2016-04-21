@@ -211,3 +211,8 @@ display: inline;
     margin-bottom: 10%;
     font-size: 2.0rem;
 }
+
+.logo_main {
+    height:30px;
+    margin-top: 15px
+}
