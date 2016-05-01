@@ -89,3 +89,136 @@ footer.page-footer {
     bottom: 0px;
     right: 50%;
 }
+
+.inline {
+display: inline;
+}
+
+.collection-header-test {
+    background-color: #fff;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0px 0px;
+}
+
+.collection1 {
+    margin: 0.5rem 0 1rem 0;
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+}
+
+.left-sidekick-header .collection-item {
+    background-color: #fff;
+    line-height: 1.5rem;
+    padding: 10px 20px;
+    margin: 0;
+    /*border-bottom: 1px solid #e0e0e0;*/
+}
+
+.left-sidekick-header .collection-item.avatar {
+    min-height: 84px;
+    padding-left: 72px;
+    position: relative;
+}
+
+.left-sidekick-header .collection-item.avatar .circle {
+    position: absolute;
+    width: 42px;
+    height: 42px;
+    overflow: hidden;
+    left: 15px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.left-sidekick-header .collection-item.avatar i.circle {
+    font-size: 18px;
+    line-height: 42px;
+    color: #fff;
+    background-color: #999;
+    text-align: center;
+}
+
+.left-sidekick-header .collection-item.avatar .title {
+    font-size: 16px;
+}
+
+.left-sidekick-header .collection-item.avatar p {
+    margin: 0;
+}
+
+.left-sidekick-header .collection-item.avatar .secondary-content {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
+.left-sidekick-header .collection-item:last-child {
+    border-bottom: none;
+}
+
+.left-sidekick-header .collection-item.active {
+    background-color: #26a69a;
+    color: #eafaf9;
+}
+
+.left-sidekick-header .collection-item.active .secondary-content {
+    color: #fff;
+}
+
+.left-sidekick-header a.collection-item {
+    display: block;
+    -webkit-transition: 0.25s;
+    -moz-transition: 0.25s;
+    -o-transition: 0.25s;
+    -ms-transition: 0.25s;
+    transition: 0.25s;
+    color: #26a69a;
+}
+
+.left-sidekick-header a.collection-item:not(.active):hover {
+    background-color: #ddd;
+}
+
+.left-sidekick-header.with-header .collection-header {
+    background-color: #fff;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 10px 20px;
+}
+
+.left-sidekick-header.with-header .collection-item {
+    padding-left: 30px;
+}
+
+.left-sidekick-header.with-header .collection-item.avatar {
+    padding-left: 72px;
+}
+
+.left-sidekick-header {
+    background-color: #b2dfdb;
+    height: 140px;
+}
+
+.left-sidekick-input-field {
+    position: relative;
+}
+
+.left-sidekick-add-button {
+    padding: 0 1px;
+    margin-left: 35%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.your-wallet-left {
+    padding-left: 10%;
+    padding-top: 10%;
+    padding-bottom: 10%;
+    margin-bottom: 10%;
+    font-size: 2.0rem;
+}
+
+.logo_main {
+    height:30px;
+    margin-top: 15px
+}
