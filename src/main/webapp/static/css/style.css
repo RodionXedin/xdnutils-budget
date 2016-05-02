@@ -6,6 +6,11 @@
  * Made By MaterializeCSS.com
  */
 
+.add-wallet-button-sidebar {
+    position:absolute;
+    bottom:50px; width:100%;
+}
+
 .currency-input-rate {
     color: #000; /* Fallback for older browsers */
     color: rgba(0, 0, 0, 0.4);

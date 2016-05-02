@@ -61,50 +61,55 @@
                 <input id="sign-in-name-input-name" type="text" class="input-field-sign-in indigo-text validate"/>
                 <label for="sign-in-name-input-name" class="validate">Name</label>
                 <button class="btn waves-effect waves-light right" id="sign-in-name-input-name-button-next"
-                    type="submit"
-                    name="action">Next
-                <i class="material-icons left">send</i>
+                        type="submit"
+                        name="action">Next
+                    <i class="material-icons left">send</i>
                 </button>
-                </div>
-            <div id="sign-in-name-input-password-div" class="input-field col s12 margins-both-sides" style="display: none">
-            <i class="material-icons prefix">fingerprint</i>
-            <input id="sign-in-name-input-password" type="text" class="indigo-text validate"/>
-            <label for="sign-in-name-input-name" class="validate">Password</label>
+            </div>
+            <div id="sign-in-name-input-password-div" class="input-field col s12 margins-both-sides"
+                 style="display: none">
+                <i class="material-icons prefix">fingerprint</i>
+                <input id="sign-in-name-input-password" type="text" class="indigo-text validate"/>
+                <label for="sign-in-name-input-name" class="validate">Password</label>
                 <button class="btn waves-effect waves-light left" style="width: 20px; padding: 0 2rem"
                         id="sign-in-name-input-password-button-back" type="submit" name="action">
                     <i class="material-icons left">backspace</i>
                 </button>
                 <button class="btn waves-effect waves-light right" id="sign-in-name-input-password-button-next"
-                    type="submit" name="action">Next
+                        type="submit" name="action">Next
                     <i class="material-icons left">send</i>
                 </button>
             </div>
             <div id="user-info-div" class="left-sidekick-header" style="display: none;">
 
-            <!--<div id="user-info-div-name" class="chip cyan left">
-            </div>
-            <div class="chip blue right" id="user-info-div-wallet-count-badge">
-            </div> --> <!--New Design-->
-            <div id="user-info-wallet-div">
-                <br/>
-                <br/>
-                <ul  id="user-info-wallet-collection">
-                    <li><h5 class="your-wallet-left">Your Wallets</h5></li>
-                </ul>
-            </div>
-            <!--<div id="user-info-default-currency">
-                <div align="center">
-                    Default Currency :
-                    <div id="user-info-default-currency-value" align="center" class="inline" style="font-weight: bold;"></div>
+                <!--<div id="user-info-div-name" class="chip cyan left">
                 </div>
-            </div>--> <!--Default Currency-->
+                <div class="chip blue right" id="user-info-div-wallet-count-badge">
+                </div> --> <!--New Design-->
+                <div id="user-info-wallet-div">
+                    <br/>
+                    <br/>
+                    <ul id="user-info-wallet-collection">
+                        <li><h5 class="your-wallet-left">Your Wallets</h5></li>
+                    </ul>
+                </div>
+                <!--<div id="user-info-default-currency">
+                    <div align="center">
+                        Default Currency :
+                        <div id="user-info-default-currency-value" align="center" class="inline" style="font-weight: bold;"></div>
+                    </div>
+                </div>--> <!--Default Currency-->
 
-                <div style="position:absolute; bottom:50px; width:100%;">
-                <a href="#modal-create-new-wallet" class="add-wallet-button btn-floating waves-effect waves-light red"
-                id="user-info-wallet-add-wallet-button"
-                style="padding: 0 1px;margin-left: 35%;margin-top: 50px;margin-bottom: 50px;"><i class="plus-add-wallet-button" style="margin-top: 22%">add</i></a>
+                    <div class="add-wallet-button-sidebar">
+                    <a href="#modal-create-new-wallet"
+                       class="add-wallet-button btn-floating waves-effect waves-light red"
+                       id="user-info-wallet-add-wallet-button"
+                       style="padding: 0 1px;margin-left: 35%;margin-top: 50px;margin-bottom: 50px;"><i
+                            class="plus-add-wallet-button" style="margin-top: 22%">add</i></a>
 
-                    <div align="center" style="opacity:0.5; padding-bottom: 10%;">You have <div id="user-info-div-wallet-count-badge" class="inline" ></div> </div>
+                    <div align="center" style="opacity:0.5; padding-bottom: 10%;">You have
+                        <div id="user-info-div-wallet-count-badge" class="inline"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -233,9 +238,10 @@
                 </div>
 
                 <div class="row">
-                    <input type="checkbox" name="periodic" id="new-expense-input-periodic" />
-                    <label for="new-expense-input-periodic" onclick="$('#expense-rule-input-div').toggleClass('hidden')">Periodic change?</label>
-                    </div>
+                    <input type="checkbox" name="periodic" id="new-expense-input-periodic"/>
+                    <label for="new-expense-input-periodic"
+                           onclick="$('#expense-rule-input-div').toggleClass('hidden')">Periodic change?</label>
+                </div>
                 <div class="row hidden" id="expense-rule-input-div">
                     <input class="typeahead input-filed col s12" id="new-expense-input-rule" type="text" name="rule"/>
                     <label for="new-expense-input-rule">What's the rule ?</label>
@@ -283,9 +289,10 @@
                     <input class="input-field col s12 datepicker" id="new-income-input-date" type="date" name="date"/>
                     <label for="new-income-input-date">When did you get money? ( Or planning to ) </label>
                 </div>
-                <div class="row" >
-                    <input type="checkbox" name="periodic" id="new-income-input-periodic" />
-                    <label for="new-income-input-periodic" onclick="$('#income-rule-input-div').toggleClass('hidden')">Periodic change?</label>
+                <div class="row">
+                    <input type="checkbox" name="periodic" id="new-income-input-periodic"/>
+                    <label for="new-income-input-periodic" onclick="$('#income-rule-input-div').toggleClass('hidden')">Periodic
+                        change?</label>
                 </div>
                 <div class="row hidden" id="income-rule-income-div">
                     <input class="typeahead input-filed col s12" id="new-income-input-rule" type="text" name="rule"/>
