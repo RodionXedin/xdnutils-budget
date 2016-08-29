@@ -134,6 +134,47 @@ function initCreateWalletButton() {
     })
 };
 
+var allPossibleWords = ["each", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday", "month", "week"];
+
+
+var substringMatcher = function (strs) {
+    return function findMatches(q, cb) {
+        var matches, substringRegex;
+
+        // an array that will be populated with substring matches
+        matches = [];
+
+        //get last word to match
+        var words = q.split(' ');
+        var currentWord = words[words.length - 1];
+        words.splice(words.length - 1);
+        var currentString = words.join(" ");
+
+        // regex used to determine if a string contains the substring `q`
+        substrRegex = new RegExp(currentWord, 'i');
+
+        // iterate through the pool of strings and for any string that
+        // contains the substring `q`, add it to the `matches` array
+        $.each(strs, function (i, str) {
+            if (substrRegex.test(str)) {
+                matches.push(currentString + " " + str);
+            }
+        });
+
+        cb(matches);
+    };
+};
+
+function initTypeAhead() {
+    $('.typeahead').typeahead({
+            minLength: 1,
+            highlight: true
+        },
+        {
+            name: 'mySource',
+            source: substringMatcher(allPossibleWords)
+        });
+}
 
 function initAddWalletButton() {
     $('#user-info-wallet-add-wallet-button').leanModal();
@@ -142,6 +183,7 @@ function initAddWalletButton() {
 function initWalletScripts() {
     initCreateWalletButton();
     initAddWalletButton();
+    initTypeAhead();
 };
 
 $(function () {

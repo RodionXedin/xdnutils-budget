@@ -5,7 +5,7 @@ function extractValuesFromForm(formSelector, additionalAttributes) {
     var form = $(formSelector);
     var result = {};
 
-    $(formSelector + ">div" + ">div>select," + formSelector + ">div" + ">input").each(function (index, value) {
+    $(formSelector + ">div" + ">div>select," + formSelector + ">div" + ">input," + formSelector + ">div>span" + ">input").each(function (index, value) {
         result[value.name] = $(value).val();
     });
 
