@@ -11,6 +11,28 @@ function openCreateIncomeModal(event) {
     $('#modal-create-income').data(WALLET_NAME_DATA_ATTR, $(event.target).parents('div.modal').data(WALLET_NAME_DATA_ATTR));
 };
 
+function getPredictions(id) {
+    $.ajax("/predictions", {
+            method: 'GET',
+            data: {
+                currentValue: $(id).val()
+            },
+            success: function (data) {
+                allPossibleWords = data.words;
+                $('.typeahead').typeahead({
+                        minLength: 1,
+                        highlight: true
+                    },
+                    {
+                        name: 'mySource',
+                        source: substringMatcher(allPossibleWords)
+                    });
+            }
+        }
+    )
+    ;
+}
+
 function deleteChange(key) {
     $.ajax('/delete-change',
         {
@@ -165,17 +187,6 @@ var substringMatcher = function (strs) {
     };
 };
 
-function initTypeAhead() {
-    $('.typeahead').typeahead({
-            minLength: 1,
-            highlight: true
-        },
-        {
-            name: 'mySource',
-            source: substringMatcher(allPossibleWords)
-        });
-}
-
 function initAddWalletButton() {
     $('#user-info-wallet-add-wallet-button').leanModal();
 };
@@ -183,7 +194,7 @@ function initAddWalletButton() {
 function initWalletScripts() {
     initCreateWalletButton();
     initAddWalletButton();
-    initTypeAhead();
+    // initTypeAhead();
 };
 
 $(function () {
