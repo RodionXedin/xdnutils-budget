@@ -2,7 +2,7 @@
  * Created by rodion on 26.02.2016.
  */
 function createIncome() {
-    var walletSelector = "#create-income-form";
+    var walletSelector = "#create-change-form";
     var currentWallet = {wallet: $(walletSelector).parents('div.modal').data(WALLET_NAME_DATA_ATTR)};
     submitForm('/create-income',walletSelector, currentWallet, true, 'Income Created',reloadChangesTables);
 
@@ -19,6 +19,4 @@ function initIncomeScripts() {
 
 $(function () {
     initIncomeScripts();
-
-
 });

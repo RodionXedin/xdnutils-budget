@@ -69,6 +69,18 @@ public class Change {
         this.explanation = explanation;
     }
 
+    public Change(Change copy) {
+        this.type = copy.type;
+        this.timeType = copy.timeType;
+        this.amount = copy.amount;
+        this.date = copy.date;
+        this.dateConverted = copy.date.toString();
+        this.currency = copy.currency;
+        this.periodRule = copy.periodRule;
+        this.name = copy.name;
+        this.explanation = copy.explanation;
+    }
+
     public String getKey() {
         return key;
     }

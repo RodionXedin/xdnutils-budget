@@ -4,7 +4,7 @@
         <th data-field="Name">Name</th>
         <th data-field="Amount">Amount</th>
         <th data-field="Currency">Currency</th>
-        <th data-field="Date">Date</th>
+        <th data-field="Date">Date or Rule</th>
         <th data-field="Type">Type</th>
         <th data-field="Delete">Delete</th>
     </tr>

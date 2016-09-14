@@ -2,14 +2,25 @@
  * Created by rodion on 24.02.2016.
  */
 function openCreateExpenseModal(event) {
-    $('#modal-create-expense').openModal();
-    $('#modal-create-expense').data(WALLET_NAME_DATA_ATTR, $(event.target).parents('div.modal').data(WALLET_NAME_DATA_ATTR));
+    openChangeModal(true);
 };
 
 function openCreateIncomeModal(event) {
-    $('#modal-create-income').openModal();
-    $('#modal-create-income').data(WALLET_NAME_DATA_ATTR, $(event.target).parents('div.modal').data(WALLET_NAME_DATA_ATTR));
+    openChangeModal(false);
 };
+
+function openChangeModal(expense) {
+    dust.render('createChange',
+        {expense: expense},
+        function (err, out) {
+            $('#modal-create-change').html(out);
+            initIncomeScripts();
+            initTypeAhead();
+            populateRatesTable();
+            $('#modal-create-change').data(WALLET_NAME_DATA_ATTR, $(event.target).parents('div.modal').data(WALLET_NAME_DATA_ATTR));
+            $('#modal-create-change').openModal();
+        });
+}
 
 function deleteChange(key) {
     $.ajax('/delete-change',
@@ -27,6 +38,15 @@ function deleteChange(key) {
 };
 
 function populateRatesTable(rates) {
+    if (!rates) {
+        $.ajax('/get-rates', {
+            method: 'GET',
+            success: function (data) {
+                populateRatesTable(data.rates);
+            }
+        });
+        return;
+    }
     $("#modal-wallet").data("rates", rates);
     var defaultCurrency = $('#user-info-div').data("defaultCurrency");
     $(".currency-input").each(function (i, v) {
@@ -54,7 +74,6 @@ function openWallet(walletName) {
             name: walletName
         },
         success: function (data) {
-            populateRatesTable(data.rates);
             populateWalletModal(data.wallet);
             $("#modal-wallet").openModal();
             reloadChangesTables();
@@ -134,7 +153,7 @@ function initCreateWalletButton() {
     })
 };
 
-var allPossibleWords = ["each", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday", "month", "week"];
+var allPossibleWords = ["each", "every", "day", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday", "month", "week", "year"];
 
 
 var substringMatcher = function (strs) {
@@ -183,7 +202,6 @@ function initAddWalletButton() {
 function initWalletScripts() {
     initCreateWalletButton();
     initAddWalletButton();
-    initTypeAhead();
 };
 
 $(function () {

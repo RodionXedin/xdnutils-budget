@@ -47,6 +47,13 @@ public class WalletController {
         return success().put("wallet", converWallettToJSON(wallet)).put("rates", rates).toString();
     }
 
+    @RequestMapping(value = "/get-rates", produces = "application/json", method = RequestMethod.GET)
+    public String getRates() {
+        JSONObject rates = new JSONObject();
+        currencyServer.getRatesMap().forEach((s, bigDecimal) -> rates.put(s, bigDecimal.doubleValue()));
+        return success().put("rates", rates).toString();
+    }
+
 
     @RequestMapping(value = "/get-general-chart", produces = "application/json", method = RequestMethod.GET)
     public String getGeneralChart(@RequestParam(value = "name") String name) {
@@ -62,6 +69,7 @@ public class WalletController {
     public String getCurrentWallets() {
         User user = (User) SessionUtils.getSession().getAttribute(SessionUtils.SessionAttributes.USER_ATTIBUTE.getAttribute());
         List<Wallet> wallets = user.getWallets();
+        wallets.removeIf(wallet -> wallet == null);
         JSONArray jsonArray = new JSONArray();
         wallets.forEach(wallet -> jsonArray.put(converWallettToJSON(wallet)));
         return success().put("wallets", jsonArray).toString();

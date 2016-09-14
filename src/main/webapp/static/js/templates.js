@@ -4,6 +4,12 @@
 
 
 function loadAndInitTemplates() {
+    $.ajax(DUST_CREATE_CHANGE, {
+        method: 'GET',
+        success: function (data) {
+            dust.loadSource(dust.compile(data, "createChange"));
+        }
+    });
     $.ajax(DUST_CHANGES_TEMPLATE_PATH, {
         method: 'GET',
         success: function (data) {

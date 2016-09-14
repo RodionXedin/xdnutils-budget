@@ -30,6 +30,8 @@ public class Wallet {
     private String name;
     private String owner;
     private Map<Information, BigDecimal> information;
+    //TODO: Export to config later
+    private int predictionPeriodInDays = 200;
     @DBRef
     private List<Change> changes;
 
@@ -117,6 +119,13 @@ public class Wallet {
         this.changes = changes;
     }
 
+    public int getPredictionPeriodInDays() {
+        return predictionPeriodInDays;
+    }
+
+    public void setPredictionPeriodInDays(int predictionPeriodInDays) {
+        this.predictionPeriodInDays = predictionPeriodInDays;
+    }
 
     @Override
     public boolean equals(Object o) {

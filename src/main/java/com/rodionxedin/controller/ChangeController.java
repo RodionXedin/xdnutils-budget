@@ -2,15 +2,19 @@ package com.rodionxedin.controller;
 
 import com.mongodb.util.JSON;
 import com.rodionxedin.db.ChangeRepository;
+import com.rodionxedin.db.TickerRepository;
 import com.rodionxedin.db.UserRepository;
 import com.rodionxedin.db.WalletRepository;
 import com.rodionxedin.model.Change;
 import com.rodionxedin.model.User;
 import com.rodionxedin.model.Wallet;
+import com.rodionxedin.model.ticker.Rule;
+import com.rodionxedin.model.ticker.Ticker;
 import com.rodionxedin.service.currency.CurrencyServer;
 import com.rodionxedin.service.machine.TimeMachine;
 import com.rodionxedin.util.JsonUtils;
 import com.rodionxedin.util.SessionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.joda.time.LocalDate;
 import org.json.JSONArray;
@@ -36,6 +40,8 @@ public class ChangeController {
 
     private final Logger logger = Logger.getLogger(ChangeController.class);
 
+    @Autowired
+    private TickerRepository tickerRepository;
 
     @Autowired
     private CurrencyServer currencyServer;
@@ -59,12 +65,11 @@ public class ChangeController {
 
         Change change = new Change(Change.Type.INCOME, Change.TimeType.ONE_TIME,
                 BigDecimal.valueOf(Double.parseDouble(params.get("amount"))),
-                LocalDate.parse(params.get("date")), Change.Currency.valueOf(params.get("currency")), null, params.get("name"), null);
+                LocalDate.parse(params.containsKey("date") && params.get("date") != null ? params.get("date") :
+                        LocalDate.now().toString()),
+                Change.Currency.valueOf(params.get("currency")), null, params.get("name"), null);
 
-
-        Change changeSaved = changeRepository.save(change);
-        wallet.addChange(changeSaved);
-        timeMachine.saveWallet(user, wallet);
+        createRuleOrChange(params, user, wallet, change);
         return success().put("data", JSON.serialize(params).toString()).toString();
     }
 
@@ -73,16 +78,25 @@ public class ChangeController {
         User user = (User) SessionUtils.getSession().getAttribute(SessionUtils.SessionAttributes.USER_ATTIBUTE.getAttribute());
         Wallet wallet = user.getWallet(params.get(JsonUtils.WALLET_KEY));
 
-
         Change change = new Change(Change.Type.OUTCOME, Change.TimeType.ONE_TIME,
                 BigDecimal.valueOf(Double.parseDouble(params.get("amount"))),
-                LocalDate.parse(params.get("date")), Change.Currency.valueOf(params.get("currency")), null, params.get("name"), null);
+                LocalDate.parse(params.containsKey("date") && params.get("date") != null ? params.get("date") :
+                        LocalDate.now().toString()),
+                Change.Currency.valueOf(params.get("currency")), null, params.get("name"), null);
 
-
-        Change changeSaved = changeRepository.save(change);
-        wallet.addChange(changeSaved);
-        timeMachine.saveWallet(user, wallet);
+        createRuleOrChange(params, user, wallet, change);
         return success().put("data", JSON.serialize(params).toString()).toString();
+    }
+
+    private void createRuleOrChange(@RequestParam Map<String, String> params, User user, Wallet wallet, Change change) {
+        if (params.containsKey("rule") && StringUtils.isNotEmpty(params.get("rule"))) {
+            new Ticker(change, user, wallet, new Rule(params.get("rule")));
+        } else {
+
+            Change changeSaved = changeRepository.save(change);
+            wallet.addChange(changeSaved);
+            timeMachine.saveWallet(user, wallet);
+        }
     }
 
     @RequestMapping(value = "/get-changes", produces = "application/json", method = RequestMethod.GET)
